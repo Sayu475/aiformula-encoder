@@ -14,8 +14,6 @@ float prev_rad = 0.0;
 float angular_velocity = 0.0; // rad/s
 unsigned long prev_time = 0;
 
-
-
 TaskHandle_t thp[1];
 
 void Core0a(void *args);
@@ -81,3 +79,4 @@ void Core0a(void *args) {
 		delay(1);
 	}
 }
+
