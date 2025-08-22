@@ -6,9 +6,6 @@
 # define ENCDR_B D5
 # define PI 3.1415926535897932384626433832795
 
-// 革新的なバージョン
-// fafafafa
-
 int16_t count_total;
 float rad = 0.0;
 int16_t count_now = 0;
