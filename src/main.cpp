@@ -60,16 +60,30 @@ void loop()
     float rps_2 = angular_velocity_2 / (2 * PI);
     float rpm_2 = rps_2 * 60;
 
-    // 角速度の計算
+    // 角速度の計算(変更点)
     if (dt > 0) {
-        angular_velocity_1 = (rad_1 - prev_rad_1) / (dt / 1000.0);  // rad/s
+        float dt_s = dt / 1000.0; // 秒
+        // 1パルス当たりの角度 (rad)。ppr と 4逓倍に基づく。
+        float tick_rad = (2 * PI) / (ppr * 4);
+        // 測定間隔 dt_s における最小検出角速度 (rad/s)
+        float min_omega = tick_rad / dt_s;
+
+        angular_velocity_1 = (rad_1 - prev_rad_1) / dt_s;  // rad/s
+        // エンコーダの分解能より小さい変化はノイズとみなしてゼロにする
+        if (angular_velocity_1 > -min_omega && angular_velocity_1 < min_omega) {
+            angular_velocity_1 = 0.0;
+        }
         prev_rad_1 = rad_1;
 
-        angular_velocity_2 = (rad_2 - prev_rad_2) / (dt / 1000.0);
+        angular_velocity_2 = (rad_2 - prev_rad_2) / dt_s;
+        if (angular_velocity_2 > -min_omega && angular_velocity_2 < min_omega) {
+            angular_velocity_2 = 0.0;
+        }
         prev_rad_2 = rad_2;
 
         prev_time = now;
     }
+    //
 
     Serial.println(">E1_count_total: " + String(count_total_1));
     Serial.println(">E1_rad: " + String(rad_1));
