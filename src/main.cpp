@@ -68,7 +68,7 @@ void loop()
         // 1パルス当たりの角度 (rad)。ppr と 4逓倍に基づく。
         float tick_rad = (2 * PI) / (ppr * 4);
         // 測定間隔 dt_s における最小検出角速度 (rad/s)
-        float min_omega = tick_rad / dt_s;
+        float min_omega = (tick_rad * 2) / dt_s;
 
         angular_velocity_1 = (rad_1 - prev_rad_1) / dt_s;  // rad/s
         // エンコーダの分解能より小さい変化はノイズとみなしてゼロにする
