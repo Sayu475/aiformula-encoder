@@ -1,6 +1,6 @@
 # include "Arduino.h"
 # include "qei.hpp"
-# include "esp_intr_alloc.h" 
+# include "esp_intr_alloc.h"
 
 // 1つ目のエンコーダ (既存)
 # define ENCDR_A D4
@@ -85,7 +85,7 @@ void loop()
     Serial.println(">E2_RPM: " + String(rpm_2));
     Serial.println();
 
-    delay(100);  // 測定間隔 100ms
+    delay(10);  // 測定間隔 10ms 100Hz
 }
 
 void Core0a(void *args) 
